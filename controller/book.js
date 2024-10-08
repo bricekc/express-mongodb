@@ -1,18 +1,36 @@
 const BookModel = require('../models/Book');
 const { verifyBook } = require('../validator/book');
+const UserModel = require('../models/User.js')
 
 module.exports = {
-    create: (req, res) => {
+    create: async (req, res) => {
         try {
 
         verifyBook(req.body)
+        const author = await UserModel.findById(req.body.author);
+        if(!author) {
+            res.status(400).send({
+                message: "Author not exist"
+            })
+        }
         const newBook = new BookModel({
             name: req.body.name,
-            description: req.body.description
+            description: req.body.description,
+            author
         })
 
         newBook.save();
-        res.status(201).send(newBook);
+        res.status(201).send({
+            id: newBook._id,
+            name: newBook.name,
+            description: newBook?.description,
+            author: {
+                id: newBook.author._id,
+                firstName: newBook.author.firstName,
+                lastName: newBook.author.lastName,
+                email: newBook.author.email,
+            }
+        });
         } catch(error) {
         res.status(400).send({
             message: error.message || 'Something Wrong'

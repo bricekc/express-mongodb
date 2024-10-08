@@ -18,9 +18,14 @@ module.exports = {
                     type: 'string',
                     minLength: 3,
                     errorMessage: 'Provide description is invalid'
+                },
+                author: {
+                    type: 'string',
+                    minLength: 1,
+                    errorMessage: 'AuthorId is invalid'
                 }
             },
-            required: ['name']
+            required: ['name', 'author']
         }
 
         let result = validator.validate(book, bookSchema)

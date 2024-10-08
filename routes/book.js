@@ -1,12 +1,13 @@
 const Router = require('express');
 const bookController = require('../controller/book');
+const jwt = require('../middlewares/jwt')
 const bookRouter = Router();
 
 bookRouter.get('/', bookController.findAll);
 
 bookRouter.get('/:id', bookController.findBook);
 
-bookRouter.post('/', bookController.create);
+bookRouter.post('/', jwt.verifyUser, bookController.create);
 
 bookRouter.put("/:id", bookController.updateBook)
 
