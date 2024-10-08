@@ -1,11 +1,11 @@
-const { Validator } = require('jsonschema')
+const { Validator } = require('jsonschema');
 
 module.exports = {
     verifyBook: (book) => {
         if (!book) {
-            throw new Error('Cannot create new book')
+            throw new Error('Cannot create new book');
         }
-        let validator = new Validator()
+        let validator = new Validator();
         let bookSchema = {
             type: 'object',
             properties: {
@@ -26,16 +26,18 @@ module.exports = {
                 }
             },
             required: ['name', 'author']
-        }
+        };
 
-        let result = validator.validate(book, bookSchema)
+        let result = validator.validate(book, bookSchema);
 
-        if (result.errors.length){
-            const errorInputsMsg = result.errors.map(error => {
-                return error.schema.errorMessage || error.message;
-            }).join(" ");
+        if (result.errors.length) {
+            const errorInputsMsg = result.errors
+                .map((error) => {
+                    return error.schema.errorMessage || error.message;
+                })
+                .join(' ');
 
             throw new Error(errorInputsMsg);
         }
     }
-}
+};

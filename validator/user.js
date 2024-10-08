@@ -1,11 +1,11 @@
-const { Validator } = require('jsonschema')
+const { Validator } = require('jsonschema');
 
 module.exports = {
     verifyUser: (user) => {
         if (!user) {
-            throw new Error('Cannot create new User')
+            throw new Error('Cannot create new User');
         }
-        let validator = new Validator()
+        let validator = new Validator();
         let userSchema = {
             type: 'object',
             properties: {
@@ -32,16 +32,18 @@ module.exports = {
                 }
             },
             required: ['firstName', 'lastName', 'email', 'password']
-        }
+        };
 
-        let result = validator.validate(user, userSchema)
+        let result = validator.validate(user, userSchema);
 
-        if (result.errors.length){
-            const errorInputsMsg = result.errors.map(error => {
-                return error.schema.errorMessage || error.message;
-            }).join(" ");
+        if (result.errors.length) {
+            const errorInputsMsg = result.errors
+                .map((error) => {
+                    return error.schema.errorMessage || error.message;
+                })
+                .join(' ');
 
             throw new Error(errorInputsMsg);
         }
     }
-}
+};
