@@ -89,4 +89,56 @@ userRouter.get('/me', jwt.verifyUser, userController.getUserInfos);
  */
 userRouter.get('/books', jwt.verifyUser, userController.getUserBooks);
 
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Retrieve the authenticated user's information
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: The authenticated user's information
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *       401:
+ *         description: Unauthorized
+ */
+userRouter.get('/', userController.getUsers);
+
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   get:
+ *     summary: Retrieve a single user by ID
+ *     tags: [users]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The User ID
+ *     responses:
+ *       200:
+ *         description: The user information
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ */
+userRouter.get('/:id', userController.getOneUserById);
+
 module.exports = userRouter;
