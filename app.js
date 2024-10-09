@@ -13,13 +13,15 @@ app.use(express.json());
 
 const swaggerOptions = {
     swaggerDefinition: {
+        openapi: '3.0.0',
         info: {
-            title: "Book API",
-            version: "1.0.0"
+            title: 'Book API',
+            version: '1.0.0',
+            description: 'API for books',
         },
     },
-    apis: ['./routes/*.js']
-}
+    apis: ['./routes/*.js'],
+};
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions)
 
