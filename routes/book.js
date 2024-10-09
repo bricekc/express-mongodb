@@ -103,7 +103,7 @@ bookRouter.get('/:id', bookController.findBook);
  *       401:
  *         description: Unauthorized
  */
-bookRouter.post('/', jwt.verifyUser, bookController.create);
+bookRouter.post('/', bookController.create);
 
 /**
  * @swagger
