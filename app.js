@@ -8,7 +8,20 @@ const swaggerUI = require('swagger-ui-express')
 
 const app = express();
 
-app.use(cors( {origin: 'https://react-efrei-test.onrender.com'}));
+const allowedOrigins = [
+    'https://react-efrei-test.onrender.com',
+    'http://localhost:5173',
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+}));
 app.use(express.json());
 
 const swaggerOptions = {
