@@ -5,6 +5,7 @@ const UserModel = require('../models/User.js');
 module.exports = {
     create: async (req, res) => {
         try {
+            console.log("create book", JSON.stringify(req.body));
             verifyBook(req.body);
             const author = await UserModel.findById(req.body.author);
             if (!author) {
