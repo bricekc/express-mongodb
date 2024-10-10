@@ -9,6 +9,7 @@ const authRouter = Router();
  *  description: Auth API Endpoints
  */
 
+
 /**
  * @swagger
  * /api/auth/register:
